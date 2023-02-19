@@ -161,19 +161,29 @@ class Workspace(
        internal_classes := table()
        every _class := getFile().getClasses().get() do {
           internal_classes[_class.getName()] := table()
-            
+          write(_class.getName())
+          write(_class.getFormType())
+
           internal_classes[_class.getName()]["methods"] := table()
           every _method := _class.getMethods().get() do {
              internal_classes[_class.getName()]["methods"][_method.getName()] := table()
 
-             internal_classes[_class.getName()]["methods"][_method.getName()]["params"] := []
+
+             internal_classes[_class.getName()]["methods"][_method.getName()]["params"] := []   
+             internal_classes[_class.getName()]["methods"][_method.getName()]["types"] := []  
+             internal_classes[_class.getName()]["methods"][_method.getName()]["defaults"] := []        
              every _param := _method.getParams().get() do {
                put(internal_classes[_class.getName()]["methods"][_method.getName()]["params"], _param.getName())
+               put(internal_classes[_class.getName()]["methods"][_method.getName()]["types"], _param.getTypeValue())
+               put(internal_classes[_class.getName()]["methods"][_method.getName()]["defaults"], _param.getDefValue())
+               
                }
+
              }
           internal_classes[_class.getName()]["attributes"] := []
           every _attribute := _class.getParams().get() do {
              put(internal_classes[_class.getName()]["attributes"], _attribute.getName())
+
              }
           }
     end

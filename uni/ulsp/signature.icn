@@ -59,7 +59,8 @@ class SignatureHandler(
                         put(results_table["signatures"][1]["parameters"], table("label", paramName))
 
                      # Observe results_table #
-                     write(ximage(results_table))
+                     write(ximage(results_table["signatures"]))
+
                   }
                }
             }
@@ -80,9 +81,9 @@ class SignatureHandler(
       signature := function || "("
       every paramName := !functionTable["params"] do {
          if counter < *functionTable["params"] - 1 then
-            signature ||:= paramName || ", "
+            signature ||:= paramName ||  ":" || functionTable["types"][counter + 1] || ":" || functionTable["defaults"][counter + 1] || ", "
          else
-            signature ||:= paramName
+            signature ||:= paramName || ":" || functionTable["types"][counter + 1] || ":" || functionTable["defaults"][counter + 1] 
          counter +:= 1
          }
       signature ||:= ")"
